@@ -15,16 +15,16 @@ use
 
 1.CREATE GO FILE  
 
-    IMPORT "GITHUB.COM/A97077088/BEESCAFFOLD"
+    import "github.com/a97077088/beescaffold"
     
-    TYPE YOUCONTROLLER STRUCT{
-    BEESCAFFOLD.BEECONTROLLER
+    type YouController struct {
+    	beescaffold.BeeController
     }
     
-    FUNC (THIS *YOUCONTROLLER)GET(){
-       	THIS.R=MAP[STRING]STRING{
-    		"RESULT":"OK",
-    	}
+    func (this *ImportExcelController)Get(){
+        this.R=map[string]string{
+            "result":"ok",
+        }
     }
     
 2.refresh you chrome
@@ -33,7 +33,7 @@ use
       "error": 0,
       "message": "",
       "data": {
-    "result": "ok"
+          "result": "ok"
       }
     }
     
