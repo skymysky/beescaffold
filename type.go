@@ -16,7 +16,12 @@ type E struct {
 	Code int
 }
 
-var E_NotLogin=Make_E_with_s_code("尚未登录",-2)
+
+//保留session
+const Code_Error_Session=-2
+var E_Error_Session=Make_E_with_s_code("session效验失败",Code_Error_Session)
+
+
 
 func Api_R_with_obj(_o interface{})*R{
 	return &R{Data:_o}
