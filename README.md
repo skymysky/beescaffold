@@ -98,3 +98,63 @@ setting defaulterrorcode
     }
     
     
+
+
+Predefined：
+
+    //保留session
+    var Code_Error_Session=-2
+    var E_Error_Session=Make_E_with_s_code("session效验失败",Code_Error_Session)
+
+
+
+# auto auth session api #
+
+
+create xorm db and tolower all tablename,filed and SetMaxIdleConns(100) eng.DB().SetMaxOpenConns(300)
+
+### Create_Mysql_with_host_port_u_p_db(_host string,_port int,_u string,_p string,_db string)(*xorm.Engine,error) ###
+
+
+
+sync token struct to you project and register xorm to beescaffold next Register_router_auth
+### Register_tokenmodel_with_xorm ###
+
+
+
+
+add auth to you path,this is regular expression
+### func Register_router_auth(_path string) ###
+
+
+
+
+## example auth ##
+
+
+    package models
+    
+    import (
+    	"github.com/go-xorm/xorm"
+    	"fmt"
+    	"beescaffold"
+    )
+    
+    var db * xorm.Engine
+    func Run(){
+    	db,err:=beescaffold.Create_Mysql_with_host_port_u_p_db("127.0.0.1",3306,"root","Aa1231231","N")
+    	if err != nil {
+    		panic(err)
+    	}
+    	beescaffold.Register_tokenmodel_with_xorm(db)
+    	beescaffold.Register_router_auth("/user/*")
+    	beescaffold.Register_router_auth("/user1/*")
+    
+    	err=db.Sync(Shenbo{},)
+    	if err!=nil{
+    		fmt.Println(err)
+    	}
+    	fmt.Println("已经成功构造数据库")
+    }
+
+#### Giving you project auth capability now ####

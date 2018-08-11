@@ -18,7 +18,7 @@ type E struct {
 
 
 //保留session
-const Code_Error_Session=-2
+var Code_Error_Session=-2
 var E_Error_Session=Make_E_with_s_code("session效验失败",Code_Error_Session)
 
 
