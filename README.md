@@ -147,10 +147,11 @@ add auth to you path,this is regular expression
     	if err != nil {
     		panic(err)
     	}
+        beescaffold.Register_router_Allow("*")
     	beescaffold.Register_tokenmodel_with_xorm(db)
     	beescaffold.Register_router_auth("/user/*")
     	beescaffold.Register_router_auth("/user1/*")
-        beescaffold.Register_router_Allow("*")
+        
     
     	err=db.Sync(Shenbo{},)
     	if err!=nil{
