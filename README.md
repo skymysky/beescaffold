@@ -142,13 +142,15 @@ add auth to you path,this is regular expression
     
     var db * xorm.Engine
     func Run(){
-    	db,err:=beescaffold.Create_Mysql_with_host_port_u_p_db("127.0.0.1",3306,"root","Aa1231231","N")
+    var err error
+	db,err=beescaffold.Create_Mysql_with_host_port_u_p_db("127.0.0.1",3306,"root","Aa1231231","N")
     	if err != nil {
     		panic(err)
     	}
     	beescaffold.Register_tokenmodel_with_xorm(db)
     	beescaffold.Register_router_auth("/user/*")
     	beescaffold.Register_router_auth("/user1/*")
+        beescaffold.Register_router_Allow("*")
     
     	err=db.Sync(Shenbo{},)
     	if err!=nil{
@@ -157,4 +159,15 @@ add auth to you path,this is regular expression
     	fmt.Println("已经成功构造数据库")
     }
 
-#### Giving you project auth capability now ####
+
+# AllowOrigins  #
+
+
+
+
+
+#### Giving you project AllowOrigins capability now ####
+
+add AllowOrigins to you path,this is regular expression
+
+    beescaffold.Register_router_Allow("*")
