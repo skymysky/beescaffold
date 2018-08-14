@@ -136,7 +136,7 @@ use
 
 #### beescaffold.Register_router_Allow("*") ####
 
-对路径加入AllowOrigins，已解决跨域问题
+对路径加入AllowOrigins，以解决跨域问题
 参数是正则表达式可以随意匹配path
 
 
