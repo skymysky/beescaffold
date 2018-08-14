@@ -9,11 +9,13 @@ import(
 )
 
 type Token struct {
-	Id int64 `json:"id"`            //id主键
-	Uid int64 `json:"uid"`         //用户uid
-	Token string `json:"token"`    //token
-	Expire int64 `json:"expire"`  //过期时间
-	Role int `json:"role"`  //用户权限
+	Id      int64  `json:"id"`                //id主键
+	Uid     int64  `xorm:"unique" json:"uid"` //用户uid
+	Session string `json:"session"`             //session
+	Expire  int64  `json:"expire"`            //过期时间
+	Role    int    `json:"role"`              //用户权限
+	Created int64  `xorm:"created" json:"created"`
+	Updated int64  `xorm:"updated" json:"updated"`
 }
 
 var _eng * xorm.Engine
@@ -46,9 +48,47 @@ func Register_tokenmodel_with_xorm(_db* xorm.Engine)error{
 	return _db.Sync(Token{})
 }
 
+
+func Update_token_with_uid_session_expire_role(_uid int64,_session string,_expire int64,_role int)error{
+	n,err:=_eng.Table(Token{}).Where("uid=?",_uid).Update(map[string]interface{}{
+		"uid":_uid,
+		"session":_session,
+		"expire":_expire,
+		"role":_role,
+	})
+	if err!=nil{
+		fmt.Println(err)
+		return err
+	}
+	fmt.Println("当前没有发生错误",n)
+	if n==1{
+		return nil
+	}
+	fmt.Println(n)
+	err=Insert_token_with_uid_session_expire_role(_uid,_session,_expire,_role)
+	return err
+}
+
+func Insert_token_with_uid_session_expire_role(_uid int64,_session string,_expire int64,_role int)error{
+	tk:=Token{
+		Uid:     _uid,
+		Session: _session,
+		Expire:  _expire,
+		Role:    _role,
+	}
+	n,err:=_eng.InsertOne(&tk)
+	if err!=nil{
+		return err
+	}
+	if n!=1{
+		return errors.New("添加token失败")
+	}
+	return nil
+}
+
 func QueryToken_with_uid_session_expire(_uid int64,_session string,_expire int64)(*Token,error){
 	t:=Token{}
-	b,err:=_eng.Table(Token{}).Where("uid=? and token=? and expire>=?",_uid,_session,_expire).Get(&t)
+	b,err:=_eng.Table(Token{}).Where("uid=? and session=? and expire>=?",_uid,_session,_expire).Get(&t)
 	if err!=nil{
 		return nil,err
 	}
