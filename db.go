@@ -13,6 +13,7 @@ type Token struct {
 	Uid int64 `json:"uid"`         //用户uid
 	Token string `json:"token"`    //token
 	Expire int64 `json:"expire"`  //过期时间
+	Role int `json:"role"`  //用户权限
 }
 
 var _eng * xorm.Engine
@@ -35,8 +36,8 @@ func Create_Mysql_with_host_port_u_p_db(_host string,_port int,_u string,_p stri
 	eng.SetMapper(ISameMapper{})
 
 	//线程池处理
-	eng.DB().SetMaxIdleConns(100)
-	eng.DB().SetMaxOpenConns(300)
+	eng.DB().SetMaxIdleConns(50)
+	eng.DB().SetMaxOpenConns(500)
 	return eng,nil
 }
 //注册token模块
