@@ -1,6 +1,6 @@
-autocomplete Controller json reader
+自动完成beego权限认证以及快捷开发api的工具
 
-#simple compose you api#
+#简单快速完成你的高性能api#
 
 ## install ##
 
